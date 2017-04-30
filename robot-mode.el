@@ -41,6 +41,8 @@
 	("\\[[^\]]+\\]+" . font-lock-constant-face)
 	;;comment kw
 	("comment  .*" . font-lock-comment-face)
+  ;; delimiter
+  (".\\(    \\)" . (1 highlight))
 	)
       )
 
@@ -272,7 +274,7 @@ c-basic-offset defines the amount of spaces that are inserted when indenting.
        )
 
 
-  (define-key robot-mode-map (kbd "TAB") 'robot-mode-indent)
+  (define-key robot-mode-map (kbd "TAB") (lambda() (interactive) (insert (robot-indent))))
   (define-key robot-mode-map (kbd "RET") 'robot-mode-newline)
   (define-key robot-mode-map [remap find-tag] 'robot-mode-find-kw)
   (define-key robot-mode-map [remap complete-symbol] 'robot-mode-complete)
