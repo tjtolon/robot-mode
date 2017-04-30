@@ -36,7 +36,7 @@
 	;;keyword definitions
 	("^[^ \t\n].+" . font-lock-function-name-face)
 	;;Variables
-	("\\(\\$\\|@\\){\\( ?[^ }$]\\)+}" 0 font-lock-variable-name-face t)
+  ("\\(\\$\\|@\\|\\&\\){\\( ?[^ }$]\\)+}" 0 font-lock-variable-name-face t)
 	;;tags etc
 	("\\[[^\]]+\\]+" . font-lock-constant-face)
 	;;comment kw
@@ -75,7 +75,7 @@ not set 4 spaces are used.
 	 )
     (save-excursion
       (let* ((variable-end (re-search-forward "[^}]*}" kw-end t))
-	     (variable-start (re-search-backward "\\(\\$\\|@\\){[^{]*" kw-start t)))
+	     (variable-start (re-search-backward "\\(\\$\\|@\\|\\&\\){[^{]*" kw-start t)))
 	(if (and variable-end variable-start)
 	    (buffer-substring variable-start variable-end)
 	  (extract-kw (buffer-substring kw-start kw-end))
@@ -95,7 +95,7 @@ not set 4 spaces are used.
   (defun match-underscores (str)
     (replace-regexp-in-string "\\(_\\| \\)" "[_ ]?" str t t))
   (defun match-infix-args (str)
-    (replace-regexp-in-string "'[^']+'" "'\\($\\|@\\){[^}]+}'" str t t))
+    (replace-regexp-in-string "'[^']+'" "'\\($\\|@\\|\\&\\){[^}]+}'" str t t))
   (match-infix-args (match-underscores kw))
 )
 
